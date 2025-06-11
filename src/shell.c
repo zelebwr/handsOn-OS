@@ -24,6 +24,13 @@ static void printUsername() {
   printString("> ");
 }
 
+static void panic(char* message) {
+  printString("KERNEL PANIC: ");
+  printString(message);
+  printString("\r\n");
+  while(1); // halt the system
+}
+
 void shell(){
   char buf[128];
   char cmd[64];
@@ -167,6 +174,10 @@ void shell(){
         char result[64];
         atoi(arg[0], &x);
         atoi(arg[1], &y);
+        if (y == 0) {
+          panic("Division by zero");
+          return; // won't be reached, because of panic halting the system
+        }
         itoa(div(x, y), result); // pakai div buatan sendiri
         printString(result);
         printString("\r\n");
