@@ -49,11 +49,10 @@ void shell(){
         char small_buf[10];
         char before_password_str[10];
         char after_password_str[10];
-        char secret_password[10];
-        strcpy(secret_password, "94201314"); // look up the meaning of this number
+        int secret_password = 94201314; // look up the meaning of this number
 
         printString("Currently the password is: ");
-        strcpy(before_password_str, secret_password); // copy the secret password to a string
+        itoa(secret_password, before_password_str); // convert the secret password to string
         printString(before_password_str); // print the secret password
         printString("\r\n");
 
@@ -62,7 +61,7 @@ void shell(){
         printString("\r\n");
 
         printString("Secret Data is: ");
-        strcpy(after_password_str, secret_password); // copy the secret password to a string
+        itoa(secret_password, after_password_str); // convert the secret password to string
         printString(after_password_str); // print the secret password
         printString("\r\n");
 
