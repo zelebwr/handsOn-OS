@@ -29,10 +29,13 @@ void shell(){
   char cmd[64];
   char arg[2][64];
   buf[0] = '\0'; // initialize buffer to empty
-
-  printString("Welcome to EorzeOS!\r\n");
+  
+  setTextColor(0x7C); 
+  clearScreen(); // clear the screen at the start
+  printString("Welcome to whatever this is!\r\n");
+  printString("Where we can try things out and see what happens.\r\n");
   while (true) {
-    // printString("User> ");
+    // printString("User> "); 
     printUsername(); // print the username and grand company
     readString(buf); // read input from the user
     printString("\r\n");
@@ -40,24 +43,54 @@ void shell(){
     parseCommand(buf, cmd, arg); // parse the inputs
 
     if(buf[0] != '\0') { // if buffer is not empty
+      
+      // if the command is "vuln"
+      if(strcmp(cmd, "vuln") == 0) {
+        char small_buf[10];
+        char before_password_str[10];
+        char after_password_str[10];
+        char secret_password[10];
+        strcpy(secret_password, "94201314"); // look up the meaning of this number
 
-       // if the command is "grandcompany"
-       if(strcmp(cmd, "grandcompany") == 0) { 
+        printString("Currently the password is: ");
+        strcpy(before_password_str, secret_password); // copy the secret password to a string
+        printString(before_password_str); // print the secret password
+        printString("\r\n");
+
+        printString("Enter data for vulnerability test: ");
+        readString(small_buf); // read input from the user
+        printString("\r\n");
+
+        printString("Secret Data is: ");
+        strcpy(after_password_str, secret_password); // copy the secret password to a string
+        printString(after_password_str); // print the secret password
+        printString("\r\n");
+
+        if (strcmp(before_password_str, after_password_str) == 0) {
+          printString("Password is unchanged. Vulnerability not triggered.\r\n");
+        } else {
+          printString("Password has been changed! Vulnerability triggered!\r\n");
+          printString("This means, buffer overflow on another variable can also effect another variable to be influenced.\r\n");
+        }
+      }
+
+      // if the command is "grandcompany"
+      else if(strcmp(cmd, "grandcompany") == 0) { 
         if (arg[0][0] == '\0') { // if there are no continued name after cmd
           printString("Please specify a grand company name. Please use 'maelstrom', 'twinadder', or 'immortalflames'.\r");
         }
         else if (strcmp(arg[0], "maelstrom") == 0) { // if the argument is "Maelstrom"
-          setTextColor(0x0C); // set text color to light red
+          setTextColor(0x74); // set text color to light red
           current_grand_company = 1; // set grand company to Maelstrom
           clearScreen(); // clear the screen
         }
         else if (strcmp(arg[0], "twinadder") == 0) { // if the argument is "Twin Adder"
-          setTextColor(0x0E); // set text color to light yellow
+          setTextColor(0x7E); // set text color to light yellow
           current_grand_company = 2; // set grand company to Twin Adder
           clearScreen(); // clear the screen
         }
         else if (strcmp(arg[0], "immortalflames") == 0) { // if the argument is "Immortal Flames"
-          setTextColor(0x09); // set text color to light blue
+          setTextColor(0x79); // set text color to light blue
           current_grand_company = 3; // set grand company to Immortal Flames
           clearScreen(); // clear the screen
         } else {
@@ -67,7 +100,7 @@ void shell(){
 
       // if the command is "clear"
       else if (strcmp(cmd, "clear") == 0) { 
-        setTextColor(0x07); // reset text color to white
+        setTextColor(0x7C); // reset text color to white
         current_grand_company = 0; // reset grand company
         clearScreen(); // clear the screen
       }
