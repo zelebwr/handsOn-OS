@@ -46,12 +46,12 @@ void shell(){
       
       // if the command is "vuln"
       if(strcmp(cmd, "vuln") == 0) {
-        char small_buf[10];
+        int secret_password = 9420; // look up the meaning of this number
         char before_password_str[10];
+        char small_buf[10];
         char after_password_str[10];
-        int secret_password = 94201314; // look up the meaning of this number
 
-        printString("Currently the password is: ");
+        printString("Before password is: ");
         itoa(secret_password, before_password_str); // convert the secret password to string
         printString(before_password_str); // print the secret password
         printString("\r\n");
@@ -60,7 +60,11 @@ void shell(){
         readString(small_buf); // read input from the user
         printString("\r\n");
 
-        printString("Secret Data is: ");
+        printString("Before password is: ");
+        printString(before_password_str); // print the secret password
+        printString("\r\n");
+
+        printString("After password is: ");
         itoa(secret_password, after_password_str); // convert the secret password to string
         printString(after_password_str); // print the secret password
         printString("\r\n");
